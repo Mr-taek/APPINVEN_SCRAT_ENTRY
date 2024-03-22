@@ -31,6 +31,7 @@
 [앱 인벤터 준비, Hello world 예제와 소스코드 공유부터 앱다운까지](#앱-인벤터-준비)
 
 [앱인벤터 기능별 사용법](#앱-인벤터-기능사용법)
+
 ### 앱 인벤터 준비
 
 1. Google chrome을 다운로드 한다.
@@ -48,7 +49,8 @@
         4. 설치가 다 되면 바탕 화면(command창에 aiStarter) aiStarter를 실행한다.
         5. cmd 창의 마지막에 "Hit Ctrl-C to quit" 가 나오면 성공이다.
         6. cmd 창을 켜둔 상태에서 app invertor 브라우저에서 연결(Connect) -> Emulator(애뮬레이터) 를 클릭하면 자동으로 aiStarter을 찾아서 실행한다.
-        7. 
+        7. aiStarter에서 화면이 켜진 순간 브라우저 화면의 스마트폰 기능이 바로 나와야 한다. 만약 안나온다면 다시 재접속시켜야한다.
+        - 단점: 이게 소리가 안나와서 시각적인 부분만 가능하다. 
 
 3. Hello World 예제
     1. Projects - > start new project -> Project name의 첫글자는 꼭 영문자이며 뒤부터 숫자와 밑줄이 올 수 있다. -> 확인을 누르면 자동으로 앱이 등장한다.
@@ -113,21 +115,124 @@
             1. 가로로 연결되는 블록들은 한번에 실행된다.
             2. 세로로 연결되는 블록은 위에서 아래로 명령을 실행한다. Block Stack 이라고 한다.
         - Block 기능 단어 해석
-            1. when-do : 갈색, if문 같은 거임. 
+            1. when-do : 갈색, if문 같은 거임. 중요한 내용
+                - 특징
+                    1. 황색 block은 지역변수를 선언할 수 있는 특징이 있음. 여기서는 지역변수를 생성이 가능함. 즉 황색 block이 끝나면 지역변수도 소멸하게 됨.
             2. call~.행동 : 보라색, 행동을 하도록 요청(호출). 이것만 when-do가 없으면 그냥 시작하자마자 기능 작동화 되는거임. 초기화 할때 써도 될 듯함.
             3. set Component.ComponentPropertires to ComponentPropertiresValue : 진한 초록색 구성요소의 properties를 ComponentPropertiresValue 값으로 변경(설정)하는 기능.
-            4. block 오른쪽에 홈이 있는 곳 : 주황색/초록색 명령 블록은 오른쪽에 홈이 파여져 있다. 끼워질 블록은 수행할 명령의 상세한 값이다.
+            4. block 오른쪽에 홈이 있는 곳 : 주황색/초록색 명령 블록은 오른쪽에 홈이 파여져 있다. 끼워질 블록은 수행할 명령의 속성 값이거나 명령어 이다.
             5. get.properties : component의 속성값을 가져오는 기능.
+            6. 왼쪽 이 튀어나오고 어떤 동사도 없는 block : 해당 컴포넌트(block)의 속성값들이다. 기능을 수행할 때 해당 컴포넌트의 속성값을 변경해야할 때 사용한다.
 
 
 
-- Component 의 고찰 : 
+- Component 의 고찰
     - 컴포넌트란 ? : 가속도센서 , 스피커 사용 , 타이머 , GPS 등 앱을 구성하는 구성요소들을 의미한다.
         - 컴포넌트의 기본 속성(초기값)은 Designer->components에서 구성요소를 선택하고 -> 바로 오른쪽 properties 탭에서 상세한 초기 속성을 구성할 수있다.
         - 컴포넌트의 기본 속성은 block에서도 변경할 수있다.
+    - 컴포넌트 이름 바꾸는 법(block에서 구분히 편해짐) : Design 모드에서 All Components 구역에 보면 하단에 "이름 바꾸기" 가 있음. 바꾸고자 하는 컴포넌트를 선택해서 이름바꾸기 하면 끝.
     - Components 종류
+        - Screen : 스크린이 처음에 기본적으로 나오지만 Screen도 components의 하나임
+            - Add Screen(스크린 추가...) : 스크린을 추가하는 버튼. 화면 중앙에서 위쪽에 보면 버튼이 있음.
+            - Funcs
+                1. 언제{}.초기화되었을때 : 
+        - Built-in (내장 함수, 내장 컴포넌트)
+            - 제어 : if/for 문이 있음.  screen제어문이 있음
+                - if문 종류
+                    - 용어해석
+                        1. 아니고 만약 = else if
+                        2. 아니라면 = else
+                    1. 만약 {boolean} 이라면 실행 {실행 block}: boolean 자리엔 "논리" block이 옴. 실행 block엔 call(호출), set(지정하기) 등으로서 실행을 하는 녀석이 올 수있음.
+                    2. 만약 {} 이라면 실행 {} 아니라면 {} : if (bool) {} else {} 랑 같은 개념
+                    3. 톱니바퀴로 조절해서 쓰면 됨.
+                - for문 종류
+                    1. 각각 반복 {variable} 시작 {startNum} 끝 {endNum} 증가 {increment} : for (variable=startNum;startNumendNum;variabble+=increment) 랑 같은 개념
+                    2. 조건 반복 조건 {bool} 실행 {실행문} : while 문이랑 같음. bool이 True 이면 계속 반복임.
+                2. open another screen screenName {} (다른 스크린열기 스크린이름 {}) : 스크린 추가를 했을 때 원하는 스크린으로 이동하는 기능을 한다.
+
+            - 논리 : bool 기능이 담겨져 있음. =>< 등이 있는 거임.
+            - 변수 : 변수를 만드는 것임
+                1. 전역변수 만들기 {이름} 초기값 {value} : 말 그대로 전역변수 "이름" 을 만들고 value 를 초기값으로 하는 전역변수를 만드는 거임. 
+                2. 지정하기 {전역변수} 값 {value}: 전역변수의 값을 value로 할당하는 선언문임.
+            - Text : Text와 관련된 모든 함수(block)이 존재한다.
+                - Funcs
+                    1. " " : 빈칸 안에 글을 적어 넣는 곳
+                    2. join : 위에서 아래로 string을 추가한다. string+"_"+string 에서 +와 같은 기능이다. 톱니바퀴를 클릭해서 join시킬 string의 개수를 조절할 수 있다.
+                    3. contain text {"문자열"} piece {"문자"} : true/false , 문자열안에 문자가 있는 지를 확인.
+            - Lists : list 자료 구조와 관련된 모든 것이 있다.
+                - 핵심사항
+                    1. list의 인덱스는 1부터 시작이다.
+                - Funcs
+                    1. make a list : list를 만든다. 톱니바퀴를 통해 포함시킬 item의 개수를 조절할 수 있다.
+                    2. 위치 구하기 항목 {index} 리스트 {리스트 변수}(select list item list {리스트변수} index {index}) : 리스트 변수의 인덱스에 있는 값을 return한다. 인덱스는 1부터 시작함을 명심해야한다.
+                    3. replace list item list {list변수} index {index} replacement {대체할 값} : list변수에 있는 index 자리에 "대체할 값"으로 값을 변경한다.
+        - Sensors : 이름 그대로 센서임. Non-visible 한 Components가 있음
+            - 가속도센서(Accelermeter) : 가속도에 대한 센서임
+                - Funcs
         - User Interface
             1. TextBox : 숫자나 글을 입력받고 싶을 때 사용하는 component.
                 - 
+            2. Button : 버튼이다.
+                - properties
+                    1. image : 버튼에다가 이미지를 불러와서 꾸밀 수 있다. 이미지는 꼭 염문이어야 하며 특수문자가 없어야 한다.
+                    2. Text : 버튼이 어떤 버튼인지를 적을 수 있다.
+            3. 목록선택버튼 : 버튼을 누르면 메뉴bar처럼 옵션을 선택할 수 있게 함.
+                - 주의사항
+                    1. 목록선택은 사전에 Designer 모드에서 "요소문자열" properties 에서 콤마로 옵션을 미리 생성할 수 있다.
+                    1. 동적으로 추가하려면 Bolck 모드에서 when{}.선택전에 set{}.element 값 {value}에서 value에다가 list를 집어 넣으면 된다. list를 넣는 이유가 애초에 "요소문자열"이 list를 받기 때문이다(Set the list of choices from a string of comma-separated values.)
+                - Funcs
+            4. 목록뷰
+        - Media : 사진이나 음성 관련 기능 컴포넌트가 있음
+            - 음성인식 , baseExam3.md를 참고하면 이해가 더 빨라짐.
+                - Funcs
+                    1. 언제 {}.텍스트가져온 후에 실행 {} : 호출{}.텍스트가져오기 를 뜻한다. 이 녀석을 실행하면 자동으로 구글 음성인식이 실행되고 구글이 지가 알아서 말 끝난 것같으면 종료키고 텍스트 가져오기가 끝난다. 이때 끝났을 때부터 텍스트가져온 후 이다.
+                    2. 호출{}.텍스트가져오기 : 녹음 시작이라는 뜻임
+                    3. 호출{}.정지 : 녹음 종료란 뜻임.
+                    4. {}.결과 : 음성인식 해서 text로 변환한 결과 문자열 이란 뜻. 문자열을 반환함.
+            - Player(플레이어) : 노래를 재생시킨다.
+                - Funcs
+                    1. {}.재생중여부 : bool, 현재 Player가 재생중인지 아닌지를 알려준다.
+            - Camera : 카메라, 안드로이드 폰에 내장된 카메라 기능을 가져와서 사진을 찍습니다
+                - Funcs
+                    1. call{}.사진찍기 : 내장된폰의 사진 기능을 가져옵니다
+                    2. when{}.AfterPicture : 사진 기능이 완료 된후의 기능입니다.
+            - Sound(소리) : 아주 짧게 소리/진동을 내는 기능. 소리내는 기능은 Player와 같으나 Sound는 아주 짧게 내보냄. 나오는 소리 간격은 properties로도 조절이 불가능함.
+                - Funcs
+                    1. call{}.Vibrate(진동하기) 밀리초 {숫자} : 숫자 밀리시간만큼 진동을 일으킨다.
+        - Social(소셜) : 전화걸기,이메일
+            - PhoneCall(전화)
+                - Funcs
+                    1. set{}.전화번호 값 {전화번호 Text} : PhoneCall 컴포넌트당 하나의 전화번호를 지정할 수 있음. 전화번호 Text 의 전화번호를 전화번호변수에 할당하는것임.
+                        - 
+                    2. call{}.MakePhoneCall(전화걸기) : 전화변수에 있는 값으로 전화를건다. 단, 바로 전화가 걸리지 않고 폰에 있는 전화기능을 가져온 다음 거기다가 변수 값을 집어 넣는다. 전화는 내가 직접 통화하기를 따로 눌러야 한다.
+                    3. call{}.DirectMakePhoneCall(다이렉트전화걸기) : 2번이 아닌 자동으로 전화걸기인데, 이게 구글에서 관리하기 때문에 이 기능은 사실상 사용이 불가능한 상태라고함.
+                        - 불가능 참고 사이트 : https://groups.google.com/g/mitappinventortest/c/z2smpTougx4?pli=1
         - Drawing and Animation
-            1. Canvas : 
+            1. Canvas : 그림을 그리는 기능을 한다.
+                - properties
+                    1. BackgroundColor : 그림판의 배경색
+                    2. BackgroundImage : 그림판의 배경 이미지
+                    3. FontSize : The font size of text drawn on the canvas.
+                - Funcs : 보면 그냥 대부분 슥 보면 어떤 의미인지 알 수 있는 것들이다.
+                    1. when{}.Dragged : 손으로 드래그 했을 때
+                    2. when{}.Flung : Flung은 내던지다, 팽개치다란 뜻. 즉 손끝으로 휙 했을 때를 의미하는 듯.
+                        - 지역변수
+                            1. X ,Y : 터치한 지점의 좌표
+                            2. 속도 : ROOT(V_X^2+V_Y^2) 의 값
+                            3. 방향 : 각도 값. 원의 오른쪽 값이 0도, 반시계 방향으로 +이고 최대 180도이다. 시계방향은 -값으로서 여기도 -180임. 즉 각도는 180~-180 사이의 값을 갖음.
+                            4. V_X,V_Y : X,Y 각각 축의 속도를 의미함.
+            2. ball/imageSprite : 둘다 기능은 같다. imageSprite는 외부이미지를 덧붙일 수 있다는 특징이 있다
+                - Funcs
+                    1. 호출{}.좌표바라보기 x{} y{} : x,y위치로 이미지의 heading 변경함.
+                    2. 호출{}.스프라이트바라보기 : ball/imageSprite를 대상으로 Sprite가 바라보는 방향을 변경함. 항상 대상이 되는 타겟과 직선이되도록 각도를 유지하면서 움직임.
+        - Storage(저장소) : 데이터 저장을 위한 Components가 있음
+            - 참고 예제
+                1. baseExam7.md
+            - TinyDB
+                - 용어
+                    1. tag(태그) : key의 개념. key:value 방식으로 값을 저장하기 때문에 db에서 값을 찾을땐 tag로 찾게 됨.
+                - Funcs
+                    1. call{}.태그가져오기 : 현재 DB에 있는 모든 tag를 list형태로 반환함.
+                        - skill
+                            1. list에서 길이구하기 리스트 의 오른쪽에 붙이면 현재 db에 있는 모든 태그의 개수를 구할 수있음.
+                    2. call{}.값가져오기 : 호출block 주제에 값만 가져와서 사용에 조금 애를 먹었었음. 암튼 태그값을 주면 그 태그의 value를 return함.
